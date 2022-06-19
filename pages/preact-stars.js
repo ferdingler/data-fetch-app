@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { getPreactRepo } from "../lib";
 
 function PreactStars({ stars }) {
   return (
@@ -37,12 +38,12 @@ function PreactStars({ stars }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("https://api.github.com/repos/preactjs/preact");
-  const json = await res.json();
+export async function getServerSideProps() {
+  // const res = await fetch("https://api.github.com/repos/preactjs/preact");
+  // const json = await res.json();
+  const json = getPreactRepo();
 
   return {
-    revalidate: 10,
     props: {
       stars: json.stargazers_count,
     },

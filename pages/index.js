@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { getNextRepo } from "../lib";
 
 function Index({ stars }) {
   return (
@@ -36,12 +37,12 @@ function Index({ stars }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("https://api.github.com/repos/vercel/next.js");
-  const json = await res.json();
+export async function getServerSideProps() {
+  // const res = await fetch("https://api.github.com/repos/vercel/next.js");
+  // const json = await res.json();
+  const json = getNextRepo();
 
   return {
-    revalidate: 10,
     props: {
       stars: json.stargazers_count,
     },
